@@ -4,6 +4,7 @@ using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Migrations
 {
     [DbContext(typeof(CollegeListContext))]
-    partial class CollegeListContextModelSnapshot : ModelSnapshot
+    [Migration("20230515124140_dfdaf")]
+    partial class dfdaf
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,6 +38,7 @@ namespace Domain.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -127,6 +131,7 @@ namespace Domain.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -165,13 +170,6 @@ namespace Domain.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Education")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Experience")
-                        .HasColumnType("int");
 
                     b.Property<string>("MiddleName")
                         .HasMaxLength(50)
@@ -240,7 +238,7 @@ namespace Domain.Migrations
             modelBuilder.Entity("Domain.Models.Attestation", b =>
                 {
                     b.HasOne("Domain.Models.Tutor", "Tutor")
-                        .WithMany("Attestations")
+                        .WithMany()
                         .HasForeignKey("TutorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -271,7 +269,7 @@ namespace Domain.Migrations
             modelBuilder.Entity("Domain.Models.TrainingCourse", b =>
                 {
                     b.HasOne("Domain.Models.Tutor", "Tutor")
-                        .WithMany("TrainingCourses")
+                        .WithMany()
                         .HasForeignKey("TutorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -321,11 +319,7 @@ namespace Domain.Migrations
 
             modelBuilder.Entity("Domain.Models.Tutor", b =>
                 {
-                    b.Navigation("Attestations");
-
                     b.Navigation("Groups");
-
-                    b.Navigation("TrainingCourses");
                 });
 #pragma warning restore 612, 618
         }

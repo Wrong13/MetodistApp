@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Domain.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Services
 {
-    public class CollegeAdminRepository : ICollegeAdminRepository
+    public class MetodistRepository : IMetodistRepository
     {
         CollegeListContext db;
-        public CollegeAdminRepository()
+        public MetodistRepository()
         {
             db = new CollegeListContext();
         }
@@ -51,13 +52,14 @@ namespace Domain.Services
 
         public async Task<Tutor> GetTutorById(int id)
         {
-            var rezult = await db.Tutors.Where(x => x.Id == id).FirstOrDefaultAsync();
+            var rezult = await db.Tutors.Include(x => x.Groups).Include(x => x.TrainingCourses).Include(x => x.Attestations).Where(x => x.Id == id).FirstOrDefaultAsync();
             return rezult;
         }
 
         public async Task<IEnumerable<Tutor>> GetTutors()
         {
-            var rezult = await db.Tutors.ToListAsync();
+            var rezult = await db.Tutors.Include(x=>x.Groups).Include(x=>x.TrainingCourses).Include(x=>x.Attestations).ToListAsync();
+            
             return rezult;
         }
 

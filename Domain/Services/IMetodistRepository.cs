@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Services
 {
-    public interface ICollegeAdminRepository
+    public interface IMetodistRepository
     {
         Task<Tutor> GetTutorById(int id);
         Task<IEnumerable<Tutor>> GetTutors();

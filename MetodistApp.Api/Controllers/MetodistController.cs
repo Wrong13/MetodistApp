@@ -6,10 +6,10 @@ namespace MetodistApp.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CollegeAdminController : Controller
+    public class MetodistController : Controller
     {
-        private readonly ICollegeAdminRepository _collegeAdminRepository;
-        public CollegeAdminController(ICollegeAdminRepository collegeAdminRepository)
+        private readonly IMetodistRepository _collegeAdminRepository;
+        public MetodistController(IMetodistRepository collegeAdminRepository)
         {
             _collegeAdminRepository = collegeAdminRepository;
         }
@@ -30,6 +30,12 @@ namespace MetodistApp.Api.Controllers
         public async Task<bool> UpdateTutor(Tutor tutor)
         {
             return await _collegeAdminRepository.UpdateTutor(tutor);
+        }
+
+        [HttpGet,Route("GetTutors")]
+        public async Task<IEnumerable<Tutor>> GetTutors()
+        {
+            return await _collegeAdminRepository.GetTutors();
         }
 
         [HttpGet,Route("GetTutorById")]
