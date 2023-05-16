@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{F693A417-90E8-49DC-9842-15C358288361}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetodistApp.Api", "MetodistApp.Api\MetodistApp.Api.csproj", "{3457D9C0-571C-489C-ACB1-A9E8AF5C1F72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetodistApp.Api", "MetodistApp.Api\MetodistApp.Api.csproj", "{3457D9C0-571C-489C-ACB1-A9E8AF5C1F72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetodistApp.WPF", "MetodistApp.WPF\MetodistApp.WPF.csproj", "{48B85A29-3DA5-48BD-A198-6F0FEF0F540D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3457D9C0-571C-489C-ACB1-A9E8AF5C1F72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3457D9C0-571C-489C-ACB1-A9E8AF5C1F72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3457D9C0-571C-489C-ACB1-A9E8AF5C1F72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48B85A29-3DA5-48BD-A198-6F0FEF0F540D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48B85A29-3DA5-48BD-A198-6F0FEF0F540D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48B85A29-3DA5-48BD-A198-6F0FEF0F540D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48B85A29-3DA5-48BD-A198-6F0FEF0F540D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
