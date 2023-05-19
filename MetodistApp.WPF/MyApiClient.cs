@@ -33,5 +33,17 @@ namespace MetodistApp.WPF
             }
             return rezult;
         }
+        public async Task<bool> DeleteTutor(int id)
+        {
+            try
+            {
+                await httpClient.DeleteAsync($"Metodist/DeleteTutor?Id={id}");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

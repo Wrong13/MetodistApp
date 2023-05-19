@@ -1,0 +1,69 @@
+﻿<Window x:Class="MetodistApp.WPF.EditTutorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MetodistApp.WPF"
+        mc:Ignorable="d"
+        Title="EditTutorWindow" Height="450" Width="800"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox
+          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+          materialDesign:HintAssist.Hint="Фамилия"
+          Text="{Binding Surname}"
+          Margin="8 0 0 0"
+          VerticalAlignment="Bottom" />
+            <TextBox
+          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+          materialDesign:HintAssist.Hint="Имя"
+          Text="{Binding Name}"
+          Margin="8 0 0 0"
+          VerticalAlignment="Bottom" />
+            <TextBox
+          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+          materialDesign:HintAssist.Hint="Отчество"
+          Text="{Binding MiddleName}"
+          Margin="8 0 0 0"
+          VerticalAlignment="Bottom" />
+            <TextBox
+          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+          materialDesign:HintAssist.Hint="Стаж"
+          Text="{Binding Experience}"
+          Margin="8 0 0 0"
+          VerticalAlignment="Bottom" />
+            <TextBox
+          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+          materialDesign:HintAssist.Hint="Образование"
+          Text="{Binding Education}"
+          Margin="8 0 0 0"
+          VerticalAlignment="Bottom" />
+            <StackPanel>
+                <TextBlock Text="Группы:"/>
+                <Border MaxHeight="200px">
+                    <ScrollViewer>
+                        <ListBox ItemsSource="{Binding Groups}" x:Name="GroupsListBox">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                </Border>
+                <Button Content="Добавить"/>
+                <Button Content="Удалить"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Button Grid.Row="1" Content="Сохранить" />
+    </Grid>
+</Window>
