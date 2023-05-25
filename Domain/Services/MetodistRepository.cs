@@ -65,9 +65,17 @@ namespace Domain.Services
 
         public async Task<bool> UpdateTutor(Tutor tutor)
         {
-            db.Tutors.Update(tutor);
-            await db.SaveChangesAsync();
-            return true;
+            db.Entry(tutor).State = EntityState.Modified;
+
+            try
+            {
+                await db.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

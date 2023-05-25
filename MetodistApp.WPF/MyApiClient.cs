@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -38,6 +40,35 @@ namespace MetodistApp.WPF
             try
             {
                 await httpClient.DeleteAsync($"Metodist/DeleteTutor?Id={id}");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public async Task<bool> CreateTutor(Tutor tutor)
+        {
+            var createTutor = JsonSerializer.Serialize(tutor);
+            var content = new StringContent(createTutor.ToString(),Encoding.UTF8,"application/json");
+
+            try
+            {
+                await httpClient.PostAsync("Metodist/CreateTutor",content);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public async Task<bool> EditTutor(Tutor tutor)
+        {
+            var editTutor = JsonSerializer.Serialize(tutor);
+            var content = new StringContent(editTutor.ToString(), Encoding.UTF8, "application/json");
+            try
+            {
+                await httpClient.PutAsync("Metodist/UpdateTutor",content);
                 return true;
             }
             catch

@@ -24,7 +24,7 @@ namespace MetodistApp.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        IEnumerable<Tutor> Tutors;
+        public IEnumerable<Tutor> Tutors;
         MyApiClient apiClient;
         public MainWindow()
         {

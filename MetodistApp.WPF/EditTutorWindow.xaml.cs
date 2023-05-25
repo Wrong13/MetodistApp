@@ -21,18 +21,30 @@ namespace MetodistApp.WPF
     public partial class EditTutorWindow : Window
     {
         public Tutor EditTutor { get; set; }
+        MyApiClient apiClient;
+        bool IsEdit = true;
         public EditTutorWindow(Tutor editTutor,bool isEdit = true)
         {
             InitializeComponent();
+            apiClient = new MyApiClient();
             if (isEdit == true)
             {
                 EditTutor = editTutor;
             }
             else
             {
+                IsEdit = false;
                 EditTutor = new Tutor();
             }
             this.DataContext = EditTutor;
+        }
+
+        private async void SaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsEdit)
+                await apiClient.EditTutor(EditTutor);
+            else
+                await apiClient.CreateTutor(EditTutor);
         }
     }
 }

@@ -13,6 +13,6 @@ namespace Domain.Models
         public string? Description { get; set; }
         public DateTime Date { get; set; }
         public int TutorId { get; set; }
-        public Tutor Tutor { get; set; }
+        public Tutor? Tutor { get; set; }
     }
 }
