@@ -3,12 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MetodistApp.WPF"
+        xmlns:local="clr-namespace:MetodistApp.WPF" xmlns:viewmodel="clr-namespace:MetodistApp.WPF.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" MinHeight="450" MinWidth="800"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        d:DataContext="{d:DesignInstance Type=local:MainWindow}">
+        d:DataContext="{d:DesignInstance Type=viewmodel:MainVm}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.3*"/>
@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <ListView x:Name="MainView" ItemsSource="{Binding Tutors}">
+            <ListView x:Name="MainView" ItemsSource="{Binding Tutors}" SelectedItem="{Binding SelectedTutor}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn
@@ -50,9 +50,10 @@
         </StackPanel>
         
         <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-            <Button Content="Редактировать" x:Name="EditBtn" Click="EditBtn_Click"/>
-            <Button Content="Добавить"/>
-            <Button Content="Удалить" x:Name="DelBtn" Click="DelBtn_Click"/>
+            <Button Content="Редактировать"
+                    Command="{Binding EditTutor}"/>
+            <Button Content="Добавить" Command="{Binding AddTutor}"/>
+            <Button Content="Удалить" Command="{Binding DeleteTutor}"/>
         </StackPanel>
     </Grid>
 </Window>
