@@ -14,8 +14,5 @@ namespace Domain.Services
         Task<bool> CreateTutor(Tutor tutor);
         Task<bool> UpdateTutor(Tutor tutor);
         Task<bool> DeleteTutorById(int id);
-        Task<Student> GetStudentById(int id);
-        Task<IEnumerable<Student>> GetStudents();
-        Task<IEnumerable<Student>> GetStudentsByGroupId(int groupId);
     }
 }

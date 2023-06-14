@@ -9,9 +9,12 @@ namespace MetodistApp.Api.Controllers
     public class MetodistController : Controller
     {
         private readonly IMetodistRepository _collegeAdminRepository;
+        CollegeListContext db;
         public MetodistController(IMetodistRepository collegeAdminRepository)
         {
             _collegeAdminRepository = collegeAdminRepository;
+            db = new CollegeListContext();
+            db.Database.EnsureCreated();
         }
 
         [HttpPost, Route("CreateTutor")]
@@ -44,22 +47,7 @@ namespace MetodistApp.Api.Controllers
             return await _collegeAdminRepository.GetTutorById(Id);
         }
 
-        [HttpGet, Route("GetStudents")]
-        public async Task<IEnumerable<Student>> GetStudents()
-        {
-            return await _collegeAdminRepository.GetStudents();
-        }
-
-        [HttpGet, Route("GetStudentById")]
-        public async Task<Student> GetStudentById(int id)
-        {
-            return await _collegeAdminRepository.GetStudentById(id);
-        }
-
-        [HttpGet, Route("GetStudentsByGroupId")]
-        public async Task<IEnumerable<Student>> GetStudentsByGroupId(int groupId)
-        {
-            return await _collegeAdminRepository.GetStudentsByGroupId(groupId);
-        }
+       
+        
     }
 }

@@ -32,23 +32,7 @@ namespace Domain.Services
             return true;
         }
 
-        public async Task<Student> GetStudentById(int id)
-        {
-            var student = await db.Students.Where(x => x.Id == id).FirstOrDefaultAsync();
-            return student;
-        }
-
-        public async Task<IEnumerable<Student>> GetStudents()
-        {
-            var rezult = await db.Students.ToListAsync();
-            return rezult;
-        }
-
-        public async Task<IEnumerable<Student>> GetStudentsByGroupId(int groupId)
-        {
-            var rezult = await db.Students.Where(x => x.GroupId == groupId).ToListAsync();
-            return rezult;
-        }
+       
 
         public async Task<Tutor> GetTutorById(int id)
         {
