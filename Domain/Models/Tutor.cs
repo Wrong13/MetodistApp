@@ -18,9 +18,8 @@ public partial class Tutor
 
     public string Education { get; set; }
 
-    public virtual ICollection<Group> Groups { get; set; } = new List<Group>();
+    public virtual List<Group> Groups { get; set; } = new List<Group>();
+    public virtual List<Attestation> Attestations { get; set; } = new List<Attestation>();
 
-    public virtual ICollection<TrainingCourse> TrainingCourses { get; set; } = new List<TrainingCourse>();
-
-    public virtual ICollection<Attestation> Attestations { get; set; } = new List<Attestation>();
+    public virtual List<TrainingCourse> TrainingCourses { get; set; } = new List<TrainingCourse>();
 }

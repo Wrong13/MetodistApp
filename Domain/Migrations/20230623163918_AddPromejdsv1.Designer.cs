@@ -12,19 +12,41 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Migrations
 {
     [DbContext(typeof(CollegeListContext))]
-    [Migration("20230515124140_dfdaf")]
-    partial class dfdaf
+    [Migration("20230623163918_AddPromejdsv1")]
+    partial class AddPromejdsv1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseCollation("Cyrillic_General_CI_AS")
                 .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Domain.Models.AttesTut", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AttestationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TutorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttestationId");
+
+                    b.HasIndex("TutorId");
+
+                    b.ToTable("AttesTuts");
+                });
 
             modelBuilder.Entity("Domain.Models.Attestation", b =>
                 {
@@ -38,14 +60,13 @@ namespace Domain.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TutorId")
+                    b.Property<int?>("TutorId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -53,6 +74,29 @@ namespace Domain.Migrations
                     b.HasIndex("TutorId");
 
                     b.ToTable("Attestations");
+                });
+
+            modelBuilder.Entity("Domain.Models.CourTut", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TutorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("TutorId");
+
+                    b.ToTable("CourTuts");
                 });
 
             modelBuilder.Entity("Domain.Models.Group", b =>
@@ -66,20 +110,17 @@ namespace Domain.Migrations
                     b.Property<int?>("IdTutor")
                         .HasColumnType("int");
 
+                    b.Property<int?>("IdTutorNavigationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id")
-                        .HasName("PK__Groups__3214EC07790E6D93");
+                    b.HasKey("Id");
 
-                    b.HasIndex("IdTutor");
+                    b.HasIndex("IdTutorNavigationId");
 
-                    b.ToTable("Groups", t =>
-                        {
-                            t.HasTrigger("InsertTutStud");
-                        });
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("Domain.Models.Student", b =>
@@ -91,32 +132,25 @@ namespace Domain.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("Birthday")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("GroupId")
                         .HasColumnType("int");
 
                     b.Property<string>("MiddleName")
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id")
-                        .HasName("PK__Students__3214EC0704405887");
+                    b.HasKey("Id");
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Student");
                 });
 
             modelBuilder.Entity("Domain.Models.TrainingCourse", b =>
@@ -131,14 +165,13 @@ namespace Domain.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TutorId")
+                    b.Property<int?>("TutorId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -146,21 +179,6 @@ namespace Domain.Migrations
                     b.HasIndex("TutorId");
 
                     b.ToTable("TrainingCourses");
-                });
-
-            modelBuilder.Entity("Domain.Models.TutStud", b =>
-                {
-                    b.Property<int?>("GroupId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TutorId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("TutorId");
-
-                    b.ToTable("TutStud", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Tutor", b =>
@@ -171,25 +189,25 @@ namespace Domain.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Education")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Experience")
+                        .HasColumnType("int");
+
                     b.Property<string>("MiddleName")
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id")
-                        .HasName("PK__Tutor__3214EC07F201260B");
+                    b.HasKey("Id");
 
-                    b.ToTable("Tutor", (string)null);
+                    b.ToTable("Tutors");
                 });
 
             modelBuilder.Entity("Domain.Models.User", b =>
@@ -235,13 +253,47 @@ namespace Domain.Migrations
                     b.ToTable("DbAdmins");
                 });
 
-            modelBuilder.Entity("Domain.Models.Attestation", b =>
+            modelBuilder.Entity("Domain.Models.AttesTut", b =>
                 {
+                    b.HasOne("Domain.Models.Attestation", "Attestation")
+                        .WithMany()
+                        .HasForeignKey("AttestationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Models.Tutor", "Tutor")
                         .WithMany()
                         .HasForeignKey("TutorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Attestation");
+
+                    b.Navigation("Tutor");
+                });
+
+            modelBuilder.Entity("Domain.Models.Attestation", b =>
+                {
+                    b.HasOne("Domain.Models.Tutor", null)
+                        .WithMany("Attestations")
+                        .HasForeignKey("TutorId");
+                });
+
+            modelBuilder.Entity("Domain.Models.CourTut", b =>
+                {
+                    b.HasOne("Domain.Models.TrainingCourse", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Tutor", "Tutor")
+                        .WithMany()
+                        .HasForeignKey("TutorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
 
                     b.Navigation("Tutor");
                 });
@@ -250,8 +302,7 @@ namespace Domain.Migrations
                 {
                     b.HasOne("Domain.Models.Tutor", "IdTutorNavigation")
                         .WithMany("Groups")
-                        .HasForeignKey("IdTutor")
-                        .HasConstraintName("FK__Groups__IdTutor__398D8EEE");
+                        .HasForeignKey("IdTutorNavigationId");
 
                     b.Navigation("IdTutorNavigation");
                 });
@@ -260,38 +311,16 @@ namespace Domain.Migrations
                 {
                     b.HasOne("Domain.Models.Group", "Group")
                         .WithMany("Students")
-                        .HasForeignKey("GroupId")
-                        .HasConstraintName("FK__Students__GroupI__3C69FB99");
+                        .HasForeignKey("GroupId");
 
                     b.Navigation("Group");
                 });
 
             modelBuilder.Entity("Domain.Models.TrainingCourse", b =>
                 {
-                    b.HasOne("Domain.Models.Tutor", "Tutor")
-                        .WithMany()
-                        .HasForeignKey("TutorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tutor");
-                });
-
-            modelBuilder.Entity("Domain.Models.TutStud", b =>
-                {
-                    b.HasOne("Domain.Models.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .HasConstraintName("FK__TutStud__GroupId__3F466844");
-
-                    b.HasOne("Domain.Models.Tutor", "Tutor")
-                        .WithMany()
-                        .HasForeignKey("TutorId")
-                        .HasConstraintName("FK__TutStud__TutorId__3E52440B");
-
-                    b.Navigation("Group");
-
-                    b.Navigation("Tutor");
+                    b.HasOne("Domain.Models.Tutor", null)
+                        .WithMany("TrainingCourses")
+                        .HasForeignKey("TutorId");
                 });
 
             modelBuilder.Entity("Domain.Models.CollegeAdmin", b =>
@@ -319,7 +348,11 @@ namespace Domain.Migrations
 
             modelBuilder.Entity("Domain.Models.Tutor", b =>
                 {
+                    b.Navigation("Attestations");
+
                     b.Navigation("Groups");
+
+                    b.Navigation("TrainingCourses");
                 });
 #pragma warning restore 612, 618
         }

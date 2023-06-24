@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using MetodistApp.WPF.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,23 @@ namespace MetodistApp.WPF
                 await apiClient.EditTutor(EditTutor);
             else
                 await apiClient.CreateTutor(EditTutor);
+        }
+
+        private async void DeleteAttesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var SelectedAttestations = AttestationsListBox.SelectedItem as Attestation;
+            if (SelectedAttestations == null)
+                return;
+
+
+            await apiClient.RemoveAttestationOnTutor(EditTutor.Id, SelectedAttestations.Id);
+            this.Close();
+        }
+
+        private void AddAttesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddAttestation attestation = new AddAttestation(EditTutor);
+            attestation.ShowDialog();
         }
     }
 }

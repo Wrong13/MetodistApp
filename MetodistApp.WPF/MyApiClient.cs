@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -35,6 +36,21 @@ namespace MetodistApp.WPF
             }
             return rezult;
         }
+
+        public async Task<IEnumerable<Attestation>> GetAttestations()
+        {
+            IEnumerable<Attestation> rezult = new List<Attestation>();
+            try
+            {
+                rezult = await httpClient.GetFromJsonAsync<IEnumerable<Attestation>>("Metodist/GetAttestations");
+            }
+            catch
+            {
+
+            }
+            return rezult;
+        }
+
         public async Task<bool> DeleteTutor(int id)
         {
             try
@@ -69,6 +85,32 @@ namespace MetodistApp.WPF
             try
             {
                 await httpClient.PutAsync("Metodist/UpdateTutor",content);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public async Task<bool> RemoveAttestationOnTutor(int tutorId,int attesId)
+        {
+            
+            try
+            {
+                await httpClient.DeleteAsync($"/Metodist/RemoveAttestationOnTutor?tutorId={tutorId}&attesId={attesId}");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public async Task<bool> AddAttestationToTutor(int tutorId,int attesId)
+        {
+            var content = new StringContent($"?tutorId={tutorId}&attesId={attesId}", Encoding.UTF8, "application/json");           
+            try
+            {
+                await httpClient.PostAsync($"/Metodist/AddAttestationToTutor",content);
                 return true;
             }
             catch

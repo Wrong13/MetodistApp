@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:MetodistApp.WPF"
         mc:Ignorable="d"
         Title="EditTutorWindow" Height="450" Width="800"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
@@ -45,10 +46,11 @@
           Margin="8 0 0 0"
           VerticalAlignment="Bottom" />
             <StackPanel>
-                <TextBlock Text="Группы:"/>
-                <Border MaxHeight="200px">
+                
+                <TextBlock Text="Аттестации"/>
+                <Border>
                     <ScrollViewer>
-                        <ListBox ItemsSource="{Binding Groups}" x:Name="GroupsListBox">
+                        <ListBox ItemsSource="{Binding Attestations}" x:Name="AttestationsListBox" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel VerticalAlignment="Center">
@@ -59,8 +61,9 @@
                         </ListBox>
                     </ScrollViewer>
                 </Border>
-                <Button Content="Добавить"/>
-                <Button Content="Удалить"/>
+                <Button Content="Добавить" x:Name="AddAttesBtn" Click="AddAttesBtn_Click"/>
+                <Button Content="Удалить" x:Name="DeleteAttesBtn" Click="DeleteAttesBtn_Click"/>
+                
             </StackPanel>
         </StackPanel>
 

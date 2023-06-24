@@ -13,7 +13,6 @@ namespace Domain.Models
         public string Name { get; set; }
         public string? Description { get; set; }
         public DateTime Date { get; set; }
-        public int TutorId { get; set; }
-        public Tutor? Tutor { get; set; }
+        public virtual ICollection<Tutor> Tutors { get; set; } = new List<Tutor>();
     }
 }

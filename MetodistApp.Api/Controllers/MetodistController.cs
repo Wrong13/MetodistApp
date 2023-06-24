@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Domain.Services;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MetodistApp.Api.Controllers
@@ -14,7 +15,7 @@ namespace MetodistApp.Api.Controllers
         {
             _collegeAdminRepository = collegeAdminRepository;
             db = new CollegeListContext();
-            db.Database.EnsureCreated();
+            
         }
 
         [HttpPost, Route("CreateTutor")]
@@ -47,7 +48,63 @@ namespace MetodistApp.Api.Controllers
             return await _collegeAdminRepository.GetTutorById(Id);
         }
 
-       
+        [HttpPost, Route("AddTrainingCourse")]
+        public async Task<bool> CreateTrainingCourse(TrainingCourse course)
+        {
+            return await _collegeAdminRepository.AddCourse(course);
+        }
+
+        [HttpPost, Route("AddAttestation")]
+        public async Task<bool> CreateAttestation(Attestation attestation)
+        {
+            return await _collegeAdminRepository.AddAttestation(attestation);
+        }
+
+        [HttpPut, Route("UpdateTrainingCourse")]
+        public async Task<bool> UpdateTrainingCourse(TrainingCourse course)
+        {
+            return await _collegeAdminRepository.EditCourse(course);
+        }
+
+        [HttpPut, Route("UpdateAttestation")]
+        public async Task<bool> UpdateAttestation(Attestation attestation)
+        {
+            return await _collegeAdminRepository.EditAttestation(attestation);
+        }
+        [HttpDelete, Route("DeleteAttestation")]
+        public async Task<bool> DeleteAttestationById(int Id)
+        {
+            return await _collegeAdminRepository.RemoveAttestation(Id);
+        }
         
+        [HttpDelete, Route("DeleteCourse")]
+        public async Task<bool> DeleteCourseById(int Id)
+        {
+            return await _collegeAdminRepository.RemoveCourse(Id);
+        }
+
+        [HttpGet,Route("GetAttestationsByTutorId")]
+        public async Task<IEnumerable<Attestation>> GetAttestationsByTutorId(int tutorId)
+        {
+            return await _collegeAdminRepository.GetAttestationsByTutorId(tutorId);
+        }
+
+        [HttpGet,Route("GetAttestations")]
+        public async Task<IEnumerable<Attestation>> GetAttestations()
+        {
+            return await _collegeAdminRepository.GetAttestations();
+        }
+
+        [HttpDelete,Route("RemoveAttestationOnTutor")]
+        public async Task<bool> RemoveAttestationOnTutor(int tutorId,int attesId)
+        { 
+            return await _collegeAdminRepository.RemoveAttestationOnTutor(tutorId, attesId);
+        }
+
+        [HttpPost,Route("AddAttestationToTutor")]
+        public async Task<bool> AddAttestationToTutor(int tutorId,int attesId)
+        {
+            return await _collegeAdminRepository.AddAttestationToTutor(tutorId, attesId);
+        }
     }
 }

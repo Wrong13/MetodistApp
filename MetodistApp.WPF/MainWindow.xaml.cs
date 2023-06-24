@@ -29,6 +29,18 @@ namespace MetodistApp.WPF
         {
             InitializeComponent();
             DataContext = new MainVm();
+            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            MainFrame.Navigate(new Views.TutorsView());
+        }
+
+        private void TutorsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Views.TutorsView());
+        }
+
+        private void AttestationsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Views.AttestationsPage());
         }
     }
 }

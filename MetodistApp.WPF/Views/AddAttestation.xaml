@@ -1,0 +1,29 @@
+﻿<Window x:Class="MetodistApp.WPF.Views.AddAttestation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MetodistApp.WPF.Views"
+        mc:Ignorable="d"
+        Title="AddAttestation" Height="300" Width="250"
+        >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer>
+            <ListBox ItemsSource="{Binding Attestations}" x:Name="AttestationsListBox" SelectedItem="{Binding SelectedAttestation}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+
+        <Button Grid.Row="1" Content="Выбрать" Command="{Binding AddAttestation}"/>
+    </Grid>
+</Window>
